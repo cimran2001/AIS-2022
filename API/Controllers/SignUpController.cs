@@ -1,3 +1,4 @@
+using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +9,19 @@ namespace API.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class SignUpController : Controller {
+    private readonly AISContext _context;
+
+    public SignUpController(AISContext context) {
+        _context = context;
+    }
     [HttpPost]
-    public IActionResult SignUp([FromBody] User user) {
-        var foundUser = UserController.Users.FirstOrDefault(u => u.Username == user.Username);
+    public async Task<IActionResult> SignUp([FromBody] User user) {
+        var foundUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
         if (foundUser is not null)
             return Conflict();
         
-        UserController.Users.Add(user);
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }
