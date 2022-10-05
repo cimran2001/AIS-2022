@@ -1,22 +1,24 @@
-using API.Data;
-using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace API.Controllers; 
+namespace Profit; 
 
 [AllowAnonymous]
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class SignUpController : Controller {
-    private readonly AISContext _context;
+    private readonly ProfitHealContext _context;
 
-    public SignUpController(AISContext context) {
+    public SignUpController(ProfitHealContext context) {
         _context = context;
     }
     [HttpPost]
     public async Task<IActionResult> SignUp([FromBody] User user) {
-        var foundUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
+        var foundUser = await _context.Users
+            .Include(u => u.LoginCredentials)
+            .FirstOrDefaultAsync(u => u.LoginCredentials.Username == user.LoginCredentials.Username);
+        
         if (foundUser is not null)
             return Conflict();
         

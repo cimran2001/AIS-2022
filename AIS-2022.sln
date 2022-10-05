@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32916.344
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{7DBDFA74-39E8-4967-8222-5DBF1D6A52CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfitHeal-API", "ProfitHeal-API\ProfitHeal-API.csproj", "{7DBDFA74-39E8-4967-8222-5DBF1D6A52CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{9898CF2B-7C4C-4B2E-9D61-2674B1CA4C67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfitHeal", "ProfitHeal\ProfitHeal.csproj", "{9898CF2B-7C4C-4B2E-9D61-2674B1CA4C67}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5251272F-5F1A-4633-9B7D-F82B4BD2363B}"
 EndProject

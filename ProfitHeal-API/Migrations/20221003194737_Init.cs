@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace API.Migrations
+namespace Profit
 {
     public partial class Init : Migration
     {

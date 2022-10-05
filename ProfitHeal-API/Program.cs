@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Profit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(auth => {
         };
     });
 
-builder.Services.AddDbContext<AISContext>(
+builder.Services.AddDbContext<ProfitHealContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AIS")));
 
 var app = builder.Build();

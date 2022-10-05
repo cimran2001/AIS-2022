@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace API.Migrations
+namespace Profit
 {
     public partial class Usersmodelupdated : Migration
     {
