@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Extensions;
-namespace Profit; 
+using ProfitHeal_API.Data;
+using ProfitHeal_API.Models.UserModels;
+
+namespace ProfitHeal_API.Controllers.UserControllers; 
 
 [AllowAnonymous]
 [ApiController]

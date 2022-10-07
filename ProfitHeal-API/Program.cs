@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Profit;
+using ProfitHeal_API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,7 +33,9 @@ builder.Services.AddAuthentication(auth => {
     });
 
 builder.Services.AddDbContext<ProfitHealContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AIS")));
+    options => {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("AIS"));
+    });
 
 var app = builder.Build();
 

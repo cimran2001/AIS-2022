@@ -1,7 +1,6 @@
-using System.Security.Cryptography;
-using System.Text;
+using ProfitHeal_API.Models.ReportModels;
 
-namespace Profit; 
+namespace ProfitHeal_API.Models.UserModels;
 
 public class User {
     public int Id { get; set; }
@@ -9,8 +8,7 @@ public class User {
     public string Surname { get; set; } = null!;
     public DateTime Birthday { get; set; }
     public string Email { get; set; } = null!;
-    public virtual IEnumerable<Role> Roles { get; set; } = null!;
-
-    public int LoginCredentialsId { get; set; }
+    public List<Role> Roles { get; set; } = null!;
+    public List<Report> Reports { get; set; } = null!;
     public LoginCredentials LoginCredentials { get; set; } = null!;
 }
