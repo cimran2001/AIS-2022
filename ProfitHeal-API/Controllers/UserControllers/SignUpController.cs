@@ -27,7 +27,6 @@ public class SignUpController : Controller {
         var user = new User() {
             Name = userInfo.Name,
             Surname = userInfo.Surname,
-            Birthday = userInfo.Birthday,
             Email = userInfo.Email,
             LoginCredentials = new LoginCredentials() {
                 Username = userInfo.Username,

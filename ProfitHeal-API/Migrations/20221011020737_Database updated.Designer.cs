@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfitHeal_API.Data;
 
@@ -11,9 +12,10 @@ using ProfitHeal_API.Data;
 namespace ProfitHealAPI.Migrations
 {
     [DbContext(typeof(ProfitHealContext))]
-    partial class ProfitHealContextModelSnapshot : ModelSnapshot
+    [Migration("20221011020737_Database updated")]
+    partial class Databaseupdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,10 +35,16 @@ namespace ProfitHealAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("SymptomName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SymptomName");
 
                     b.HasIndex("UserId");
 
@@ -52,17 +60,12 @@ namespace ProfitHealAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ReportId")
-                        .HasColumnType("int");
-
                     b.HasKey("Name");
 
                     b.HasIndex("CategoryName");
 
                     b.HasIndex("Name")
                         .IsUnique();
-
-                    b.HasIndex("ReportId");
 
                     b.ToTable("Symptoms");
                 });
@@ -83,30 +86,6 @@ namespace ProfitHealAPI.Migrations
                         new
                         {
                             Name = "Digestion"
-                        },
-                        new
-                        {
-                            Name = "Respiration"
-                        },
-                        new
-                        {
-                            Name = "Dermis"
-                        },
-                        new
-                        {
-                            Name = "Nerves"
-                        },
-                        new
-                        {
-                            Name = "Pain"
-                        },
-                        new
-                        {
-                            Name = "Senses"
-                        },
-                        new
-                        {
-                            Name = "Other"
                         });
                 });
 
@@ -158,6 +137,9 @@ namespace ProfitHealAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -198,11 +180,19 @@ namespace ProfitHealAPI.Migrations
 
             modelBuilder.Entity("ProfitHeal_API.Models.ReportModels.Report", b =>
                 {
+                    b.HasOne("ProfitHeal_API.Models.ReportModels.Symptom", "Symptom")
+                        .WithMany()
+                        .HasForeignKey("SymptomName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProfitHeal_API.Models.UserModels.User", "User")
                         .WithMany("Reports")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Symptom");
 
                     b.Navigation("User");
                 });
@@ -214,10 +204,6 @@ namespace ProfitHealAPI.Migrations
                         .HasForeignKey("CategoryName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ProfitHeal_API.Models.ReportModels.Report", null)
-                        .WithMany("Symptoms")
-                        .HasForeignKey("ReportId");
 
                     b.Navigation("Category");
                 });
@@ -246,11 +232,6 @@ namespace ProfitHealAPI.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProfitHeal_API.Models.ReportModels.Report", b =>
-                {
-                    b.Navigation("Symptoms");
                 });
 
             modelBuilder.Entity("ProfitHeal_API.Models.UserModels.User", b =>

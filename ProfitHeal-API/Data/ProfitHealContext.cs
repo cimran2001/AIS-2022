@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using ProfitHeal_API.Models;
 using ProfitHeal_API.Models.ReportModels;
 using ProfitHeal_API.Models.UserModels;
 
@@ -11,6 +10,7 @@ public class ProfitHealContext : DbContext {
     public DbSet<Role> Roles { get; set; } = null!;
     
     public DbSet<Symptom> Symptoms { get; set; } = null!;
+    public DbSet<SymptomCategory> SymptomCategories { get; set; } = null!;
     public DbSet<Report> Reports { get; set; } = null!;
 
     public ProfitHealContext(DbContextOptions options) : base(options) { }
@@ -32,6 +32,19 @@ public class ProfitHealContext : DbContext {
             
             role.HasData(new Role() { Name = "User" });
             role.HasData(new Role() { Name = "Admin" });
+        });
+
+        modelBuilder.Entity<SymptomCategory>(symptomCategory => {
+            symptomCategory.HasKey(sc => sc.Name);
+            symptomCategory.HasIndex(sc => sc.Name).IsUnique();
+
+            symptomCategory.HasData(new SymptomCategory() { Name = "Digestion" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Respiration" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Dermis" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Nerves" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Pain" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Senses" });
+            symptomCategory.HasData(new SymptomCategory() { Name = "Other" });
         });
 
         modelBuilder.Entity<Symptom>(symptom => {

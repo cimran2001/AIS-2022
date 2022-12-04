@@ -17,14 +17,18 @@ public class UserController : Controller {
         _context = context;
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [HttpGet]
-    public async Task<IActionResult> Get(string? roleName) {
-        var users = await _context.Users
-            .Include(u => u.Roles)
-            .Where(u => roleName == null || u.Roles.Any(r => r.Name == roleName))
-            .ToListAsync();
-        return Ok(users);
+    public async Task<IActionResult> Get(string username) {
+        var user = await _context.Users
+            .Include(u => u.LoginCredentials)
+            .Where(u => u.LoginCredentials.Username == username)
+            .FirstOrDefaultAsync();
+
+        if (user is null)
+            return NotFound();
+        
+        return Ok(user);
     }
 
     // DOESN'T WORK
@@ -40,7 +44,6 @@ public class UserController : Controller {
 
         found.Name = userInfo.Name;
         found.Surname = userInfo.Surname;
-        found.Birthday = userInfo.Birthday;
         found.Email = userInfo.Email;
 
         var loginCredentials =

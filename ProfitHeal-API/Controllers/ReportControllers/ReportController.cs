@@ -23,7 +23,7 @@ public class ReportController : Controller {
         var reports = await _context.Reports
             .Include(r => r.User)
             .ThenInclude(u => u.LoginCredentials)
-            .Include(r => r.Symptom)
+            .Include(r => r.Symptoms)
             .Where(r => username == null || r.User.LoginCredentials.Username == username)
             .Where(r => date == null || r.Date.Date == date.Value.Date)
             .ToListAsync();

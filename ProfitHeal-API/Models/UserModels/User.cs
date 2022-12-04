@@ -6,7 +6,6 @@ public class User {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Surname { get; set; } = null!;
-    public DateTime Birthday { get; set; }
     public string Email { get; set; } = null!;
     public List<Role> Roles { get; set; } = null!;
     public List<Report> Reports { get; set; } = null!;

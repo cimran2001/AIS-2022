@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProfitHeal_API.Data;
 
@@ -11,9 +12,10 @@ using ProfitHeal_API.Data;
 namespace ProfitHealAPI.Migrations
 {
     [DbContext(typeof(ProfitHealContext))]
-    partial class ProfitHealContextModelSnapshot : ModelSnapshot
+    [Migration("20221013001300_Birthday column removed")]
+    partial class Birthdaycolumnremoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,30 +85,6 @@ namespace ProfitHealAPI.Migrations
                         new
                         {
                             Name = "Digestion"
-                        },
-                        new
-                        {
-                            Name = "Respiration"
-                        },
-                        new
-                        {
-                            Name = "Dermis"
-                        },
-                        new
-                        {
-                            Name = "Nerves"
-                        },
-                        new
-                        {
-                            Name = "Pain"
-                        },
-                        new
-                        {
-                            Name = "Senses"
-                        },
-                        new
-                        {
-                            Name = "Other"
                         });
                 });
 
